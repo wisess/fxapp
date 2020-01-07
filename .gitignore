@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__
+*.py[cod]
+*.pyc
+*$py.class
+
+# Static files
+static
+
+# Data
+dump.rdb
+
+# Virtual env
+venv
+virt
+Pipfile
+Pipfile.lock
+
+# Archives
+*.tar.gz
+
+# Enviroments
+.env
