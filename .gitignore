@@ -21,3 +21,6 @@ Pipfile.lock
 
 # Enviroments
 .env
+
+# Server settings
+gunicorn_config.py
