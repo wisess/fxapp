@@ -1,2 +1,2 @@
 # fxapp
-Download and API for CME Margin data
+API for CME Margin data
