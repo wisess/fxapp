@@ -6,9 +6,9 @@ from django.dispatch import receiver
 from . import signals, services
 
 
-@receiver(signals.load_expirations_calendar)
-def load_expirations_calendar(sender, **kwargs):
-	services.print_success('The expirations calendar was loaded.')
+@receiver(signals.download_expirations_calendar)
+def download_expirations_calendar(sender, **kwargs):
+	services.print_success('The expirations calendar was downloaded.')
 
 @receiver(signals.load_monthly_zones)
 def load_monthly_zones(sender, **kwargs):
