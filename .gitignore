@@ -24,3 +24,6 @@ Pipfile.lock
 
 # Server settings
 gunicorn_config.py
+
+#Tmp files
+tmp

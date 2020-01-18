@@ -1,7 +1,9 @@
 arrow==0.15.4
 asgiref==3.2.3
 backcall==0.1.0
+beautifulsoup4==4.8.2
 blessed==1.16.1
+bs4==0.0.1
 certifi==2019.11.28
 chardet==3.0.4
 decorator==4.4.1
@@ -25,7 +27,9 @@ python-dateutil==2.8.1
 pytz==2019.3
 redis==3.3.11
 requests==2.22.0
+selenium==3.141.0
 six==1.13.0
+soupsieve==1.9.5
 sqlparse==0.3.0
 traitlets==4.3.3
 urllib3==1.25.7
