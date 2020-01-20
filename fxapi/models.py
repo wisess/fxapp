@@ -5,6 +5,7 @@ from django.db import models
 
 class Symbol(models.Model):
     symbol 		= models.CharField(max_length=10)
+    fx_symbol	= models.CharField(max_length=10, null=True, blank=True)
     name 		= models.CharField(max_length=255, null=True, blank=True)
     cme_code 	= models.CharField(max_length=255, null=True, blank=True)
     cme_pid 	= models.CharField(max_length=10, null=True, blank=True)

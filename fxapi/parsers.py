@@ -4,14 +4,17 @@ from bs4 import BeautifulSoup
 import requests, csv, os
 from progress.bar import IncrementalBar
 
+EXP_LIST_DIR_PATH 	= os.getenv("EXPIRATIONS_LIST_DIR_PATH")
+EXP_LIST_FILE_PATH 	= os.getenv("EXPIRATIONS_LIST_FILE_PATH")
+REVERSE_SYMBOLS		= ("CAD" , "CHF" , "JPY")
+
 class DownloadExpirationsList:
 
 	def __init__(self):
 		fp = webdriver.FirefoxProfile()
-		DIR_PATH = os.getenv("EXPIRATIONS_LIST_DIR_PATH")
 		fp.set_preference("browser.download.folderList",2)
 		fp.set_preference("browser.download.manager.showWhenStarting",False)
-		fp.set_preference("browser.download.dir", DIR_PATH)
+		fp.set_preference("browser.download.dir", EXP_LIST_DIR_PATH)
 		fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/csv")
 		fp.set_preference("plugin.disable_full_page_plugin_for_types", "application/csv")
 		self.driver = webdriver.Firefox(fp)
@@ -67,3 +70,27 @@ class DownloadExpirationsList:
 				self.driver.quit()
 				bar.finish()
 				
+
+class ParseExpirationsList:
+
+	def __init__(self):
+		pass
+
+	def normalize_symbol_name(self, raw_name):
+		parts_name 		= raw_name.split("/")
+		if len(parts_name)<2:
+			return 0
+		normalize_name 	= parts_name[0]+parts_name[1]
+		return normalize_name
+
+	def parse(self):
+		# bar = IncrementalBar('Parsing ', max = 1)
+		# bar.next()
+		# bar.finish()
+		with open(EXP_LIST_FILE_PATH, "r") as f_obj:
+			reader = csv.reader(f_obj)
+			for row in reader:
+				row_elements = row[1].split(' ')
+				if len(row_elements)>1:
+					symbol_name = self.normalize_symbol_name(row_elements[0])
+					print(row_elements[2])
