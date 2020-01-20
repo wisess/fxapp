@@ -63,3 +63,12 @@
 JavaScript error: https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js, line 4: TypeError: b.ownerDocument.defaultView is null
 JavaScript error: https://s7.addthis.com/js/300/addthis_widget.js#pubid=cjoh44, line 2: NS_ERROR_NOT_INITIALIZED: 
 1579352658572	Marionette	INFO	Stopped listening on port 41915
+1579500767959	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.75bLbAaFYfIX"
+1579500768360	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1579500768384	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1579500768384	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1579500768384	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1579500768384	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1579500770243	Marionette	INFO	Listening on port 41421
+1579500770274	Marionette	WARN	TLS certificate errors will be ignored for this session
+1579500913567	Marionette	INFO	Stopped listening on port 41421

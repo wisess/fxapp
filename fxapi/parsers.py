@@ -8,10 +8,10 @@ class DownloadExpirationsList:
 
 	def __init__(self):
 		fp = webdriver.FirefoxProfile()
-
+		DIR_PATH = os.getenv("EXPIRATIONS_LIST_DIR_PATH")
 		fp.set_preference("browser.download.folderList",2)
 		fp.set_preference("browser.download.manager.showWhenStarting",False)
-		fp.set_preference("browser.download.dir", "/home/wisess/Study/fxproject/fxapp/tmp")
+		fp.set_preference("browser.download.dir", DIR_PATH)
 		fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/csv")
 		fp.set_preference("plugin.disable_full_page_plugin_for_types", "application/csv")
 		self.driver = webdriver.Firefox(fp)

@@ -11,6 +11,7 @@ Django==3.0.1
 django-picklefield==2.0
 django-q==1.0.2
 djangorestframework==3.11.0
+env-file==2019.4.13
 gunicorn==20.0.4
 idna==2.8
 ipython==7.10.2
@@ -19,9 +20,11 @@ jedi==0.15.2
 parso==0.5.2
 pexpect==4.7.0
 pickleshare==0.7.5
+progress==1.5
 prompt-toolkit==3.0.2
 psycopg2==2.8.4
 ptyprocess==0.6.0
+public==2019.4.13
 Pygments==2.5.2
 python-dateutil==2.8.1
 pytz==2019.3
@@ -33,4 +36,5 @@ soupsieve==1.9.5
 sqlparse==0.3.0
 traitlets==4.3.3
 urllib3==1.25.7
+values==2019.4.13
 wcwidth==0.1.7

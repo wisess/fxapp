@@ -6,22 +6,29 @@ import requests
 from django.dispatch import receiver
 from . import signals, services
 
+EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
 
 @receiver(signals.download_expirations_calendar)
 def download_expirations_calendar(sender, **kwargs):
 	from .parsers import DownloadExpirationsList
-	path = '/home/wisess/Study/fxproject/fxapp/tmp/Expirations.csv'
+	
 
-	if(os.path.isfile(path)):
-		os.remove(path)
+	if(os.path.isfile(EXP_LIST_FILE_PATH)):
+		os.remove(EXP_LIST_FILE_PATH)
 	parser = DownloadExpirationsList()
 	parser.download()
 
-	if(os.path.isfile(path)):
+	if(os.path.isfile(EXP_LIST_FILE_PATH)):
 		services.print_success('The expirations calendar was downloaded.')
 	else:
 		services.print_error('Error download the expirations calendar.')
-	
+
+@receiver(signals.pars_expirations_calendar)
+def pars_expirations_calendar(sender, **kwargs):
+	if(os.path.isfile(EXP_LIST_FILE_PATH)):
+		print('File exist')
+	else:
+		services.print_error("Expirations list file doesn\'t exist.")
 
 @receiver(signals.load_monthly_zones)
 def load_monthly_zones(sender, **kwargs):
