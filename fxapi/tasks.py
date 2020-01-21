@@ -28,7 +28,8 @@ def pars_expirations_calendar(sender, **kwargs):
 	from .parsers import ParseExpirationsList
 	if(os.path.isfile(EXP_LIST_FILE_PATH)):
 		parser = ParseExpirationsList()
-		parser.parse()
+		contracts = parser.parse()
+		print(contracts)
 	else:
 		services.print_error("Expirations list file doesn\'t exist.")
 

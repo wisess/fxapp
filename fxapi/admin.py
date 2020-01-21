@@ -3,7 +3,7 @@ from .models import Symbol, Option, ComfortZones
 
 @admin.register(Symbol)
 class SymbolAdmin(admin.ModelAdmin):
-    list_display 	= ('symbol', 'name', 'is_enabled',)
+    list_display 	= ('symbol', 'fx_symbol', 'name', 'point_price', 'is_enabled',)
     search_fields 	= ('symbol', 'name', )
     ordering 		= ('symbol', )
 

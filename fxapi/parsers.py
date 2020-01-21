@@ -84,13 +84,31 @@ class ParseExpirationsList:
 		return normalize_name
 
 	def parse(self):
-		# bar = IncrementalBar('Parsing ', max = 1)
-		# bar.next()
-		# bar.finish()
+		result 					= {}
+		monthly_list 			= []
+		weekly_friday_list 		= []
+		weekly_wednesday_list 	= []
 		with open(EXP_LIST_FILE_PATH, "r") as f_obj:
 			reader = csv.reader(f_obj)
 			for row in reader:
-				row_elements = row[1].split(' ')
-				if len(row_elements)>1:
-					symbol_name = self.normalize_symbol_name(row_elements[0])
-					print(row_elements[2])
+				second_col_elements = row[1].split(' ')
+				if len(second_col_elements)>1:
+					symbol_name = self.normalize_symbol_name(second_col_elements[0])
+					if second_col_elements[1] == "Monthly" and second_col_elements[2]=="Options" and \
+						(symbol_name!="EURCHF" and symbol_name!="EURGBP" and symbol_name!="EURJPY" and symbol_name!="NZDUSD"):
+							filtered_monthly_data = [symbol_name, second_col_elements[1], row[2], row[5].split(' ')[0]]
+							monthly_list.append(filtered_monthly_data)
+					elif second_col_elements[1] == "Weekly" and second_col_elements[3]=="Options":
+						if second_col_elements[2] == "Friday" and \
+							(symbol_name!="EURCHF" and symbol_name!="EURGBP" and symbol_name!="EURJPY" and symbol_name!="NZDUSD"):
+								filtered_friday_data = [symbol_name, second_col_elements[2], row[2], row[5].split(' ')[0]]
+								weekly_friday_list.append(filtered_friday_data)
+						elif second_col_elements[2] == "Wednesday":
+							filtered_wednesday_data = [symbol_name, second_col_elements[2], row[2], row[5].split(' ')[0]]
+							weekly_wednesday_list.append(filtered_wednesday_data)
+		result = {
+			'monthly_contracts' 	: monthly_list,
+			'friday_contracts' 		: weekly_friday_list,
+			'wednesday_contracts' 	: weekly_wednesday_list,
+		}
+		return result
