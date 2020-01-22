@@ -43,8 +43,13 @@ def pars_expirations_calendar(sender, **kwargs):
 					option_instance.option_code = option_code
 					option_instance.expiration = option_date
 					option_instance.save()
+		services.print_success("Expirations list file was parsed.")
 	else:
 		services.print_error("Expirations list file doesn\'t exist.")
+
+@receiver(signals.check_expirations_list)
+def check_expirations_list(sender, **kwargs):
+	pass
 
 @receiver(signals.load_monthly_zones)
 def load_monthly_zones(sender, **kwargs):
