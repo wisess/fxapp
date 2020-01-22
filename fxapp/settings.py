@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_q',
+    'django_admin_listfilter_dropdown',
     'fxapi',
 ]
 
