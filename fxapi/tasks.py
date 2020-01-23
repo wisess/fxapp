@@ -1,10 +1,10 @@
 import time
-import datetime
+from datetime import date
 import re
 import os
 import requests
 from django.dispatch import receiver
-from . import models, signals, services
+from . import models, signals, utils
 
 EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
 
@@ -19,9 +19,9 @@ def download_expirations_calendar(sender, **kwargs):
 	parser.download()
 
 	if(os.path.isfile(EXP_LIST_FILE_PATH)):
-		services.print_success('The expirations calendar was downloaded.')
+		utils.print_success('The expirations calendar was downloaded.')
 	else:
-		services.print_error('Error download the expirations calendar.')
+		utils.print_error('Error download the expirations calendar.')
 
 @receiver(signals.pars_expirations_calendar)
 def pars_expirations_calendar(sender, **kwargs):
@@ -35,7 +35,7 @@ def pars_expirations_calendar(sender, **kwargs):
 				option_name = contract[0]
 				option_type = contract[1]
 				option_code = contract[2]
-				option_date = services.normalize_date(contract[3])
+				option_date = utils.normalize_date(contract[3])
 				if option_name==symbol.symbol:
 					option_instance, created = models.Option.objects.get_or_create(symbol=symbol, option_code=option_code)
 					option_instance.symbol = symbol
@@ -43,22 +43,27 @@ def pars_expirations_calendar(sender, **kwargs):
 					option_instance.option_code = option_code
 					option_instance.expiration = option_date
 					option_instance.save()
-		services.print_success("Expirations list file was parsed.")
+		utils.print_success("Expirations list file was parsed.")
 	else:
-		services.print_error("Expirations list file doesn\'t exist.")
+		utils.print_error("Expirations list file doesn\'t exist.")
 
 @receiver(signals.check_expirations_list)
 def check_expirations_list(sender, **kwargs):
-	pass
+	today = date.today()
+	contracts_list = models.Option.objects.filter(expiration=today).order_by('symbol')
+	if len(contracts_list)>0:
+		print(contracts_list)
+	else:
+		utils.print_notice("No expiring contracts.")
 
 @receiver(signals.load_monthly_zones)
 def load_monthly_zones(sender, **kwargs):
-	services.print_success('Monthly comfort zones data was loaded.')
+	utils.print_success('Monthly comfort zones data was loaded.')
 
 @receiver(signals.load_weekly_zones)
 def load_weekly_zones(sender, **kwargs):
-	services.print_success('Weekly comfort zones data was loaded.')
+	utils.print_success('Weekly comfort zones data was loaded.')
 
 @receiver(signals.load_wednesday_zones)
 def load_wednesday_zones(sender, **kwargs):
-	services.print_success('Wednesday comfort zones data was loaded.')
+	utils.print_success('Wednesday comfort zones data was loaded.')
