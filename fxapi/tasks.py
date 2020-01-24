@@ -4,7 +4,7 @@ import re
 import os
 import requests
 from django.dispatch import receiver
-from . import models, signals, utils
+from . import services, signals, utils
 
 EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
 
@@ -29,20 +29,12 @@ def pars_expirations_calendar(sender, **kwargs):
 	if(os.path.isfile(EXP_LIST_FILE_PATH)):
 		parser = ParseExpirationsList()
 		contracts = parser.parse()
-		symbols = models.Symbol.objects.filter(cme_pid__isnull=False).order_by('symbol')
+		symbols = services.get_fx_symbols()
 		for symbol in symbols:
 			for contract in contracts:
 				option_name = contract[0]
-				option_type = contract[1]
-				option_code = contract[2]
-				option_date = utils.normalize_date(contract[3])
 				if option_name==symbol.symbol:
-					option_instance, created = models.Option.objects.get_or_create(symbol=symbol, option_code=option_code)
-					option_instance.symbol = symbol
-					option_instance.option_type = option_type
-					option_instance.option_code = option_code
-					option_instance.expiration = option_date
-					option_instance.save()
+					services.write_option_contract_to_db(symbol, contract)
 		utils.print_success("Expirations list file was parsed.")
 	else:
 		utils.print_error("Expirations list file doesn\'t exist.")
@@ -50,7 +42,7 @@ def pars_expirations_calendar(sender, **kwargs):
 @receiver(signals.check_expirations_list)
 def check_expirations_list(sender, **kwargs):
 	today = date.today()
-	contracts_list = models.Option.objects.filter(expiration=today).order_by('symbol')
+	contracts_list = services.get_expiring_contracts(today)
 	if len(contracts_list)>0:
 		print(contracts_list)
 	else:
