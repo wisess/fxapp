@@ -100,3 +100,21 @@ class ParseExpirationsList:
 								filtered_weekly_data = [symbol_name, second_col_elements[2], row[2], row[5].split(' ')[0]]
 								result.append(filtered_weekly_data)
 		return result
+
+class ParseSettleDataFromCme:
+	MAIN_URL 	= 'https://www.cmegroup.com/tools-information/quikstrike/option-settlement.html'
+	STRIKES_URL = 'https://cmegroup-tools.quikstrike.net/User/QuikStrikeView.aspx?pid={pid}&pf=61&viewitemid=IntegratedSettlementSheet'
+
+	def __init__(self, option):
+		self.driver 		= webdriver.Firefox()
+		self.symbol 		= option.symbol
+		self.pid			= option.symbol.cme_pid
+		self.option_type 	= option.option_type
+		self.option_code 	= option.option_code
+
+	def parse(self):
+		url = self.STRIKES_URL.format(pid=self.pid)
+		self.driver.get(self.MAIN_URL)
+		sleep(3)
+		self.driver.get(url)
+		sleep(3)

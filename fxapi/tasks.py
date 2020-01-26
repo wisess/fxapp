@@ -41,10 +41,13 @@ def pars_expirations_calendar(sender, **kwargs):
 
 @receiver(signals.check_expirations_list)
 def check_expirations_list(sender, **kwargs):
+	from .parsers import ParseSettleDataFromCme
 	today = date.today()
 	contracts_list = services.get_expiring_contracts(today)
 	if len(contracts_list)>0:
-		print(contracts_list)
+		for contract in contracts_list:
+			parser = ParseSettleDataFromCme(contract)
+			settle_data = parser.parse()
 	else:
 		utils.print_notice("No expiring contracts.")
 
