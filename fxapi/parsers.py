@@ -121,6 +121,7 @@ class ParseSettleDataFromCme:
 		self.driver 		= webdriver.Firefox()
 		self.symbol 		= option.symbol
 		self.pid			= option.symbol.cme_pid
+		self.cab			= option.symbol.cab
 		self.option_type 	= option.option_type
 		self.option_code 	= option.option_code
 
@@ -146,10 +147,19 @@ class ParseSettleDataFromCme:
 				link_id = li.find('a').attrs['id']
 				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
 				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
-				sleep(2)
+				sleep(3)
 				# здесь пишем сбор и обработку данных из таблицы
+				soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+				strikes_data = []
 				table = soup.find('table', {'id': 'pricing-sheet'})
 				for row in table.tbody.find_all('tr'):
-					pass
+					tds = row.find_all('td')
+					tds = [td for td in tds if 'hide' not in td.attrs.get('class', [])]
+					strike_items = [tds[2].text.strip(), tds[3].text.strip(), tds[4].text.strip()]
+					strikes_data.append(strike_items)
+				for strike_item in strikes_data:
+					print(strike_item)
+					
+
 		return 0
 		

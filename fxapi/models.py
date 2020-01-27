@@ -11,6 +11,7 @@ class Symbol(models.Model):
     cme_pid 	= models.CharField(max_length=10, null=True, blank=True)
     exchange 	= models.CharField(max_length=255, null=True, blank=True)
     point_price = models.FloatField(null=True)
+    cab			= models.FloatField(null=True)
     is_enabled 	= models.BooleanField(default=True)
 
     def __str__(self):

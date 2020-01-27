@@ -4,7 +4,7 @@ from django_admin_listfilter_dropdown.filters import DropdownFilter, ChoiceDropd
 
 @admin.register(Symbol)
 class SymbolAdmin(admin.ModelAdmin):
-    list_display 	= ('symbol', 'fx_symbol', 'name', 'point_price', 'is_enabled',)
+    list_display 	= ('symbol', 'fx_symbol', 'name', 'point_price', 'cab', 'is_enabled',)
     ordering 		= ('symbol', )
 
 @admin.register(Option)
