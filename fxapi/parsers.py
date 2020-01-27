@@ -102,8 +102,20 @@ class ParseExpirationsList:
 		return result
 
 class ParseSettleDataFromCme:
-	MAIN_URL 	= 'https://www.cmegroup.com/tools-information/quikstrike/option-settlement.html'
-	STRIKES_URL = 'https://cmegroup-tools.quikstrike.net/User/QuikStrikeView.aspx?pid={pid}&pf=61&viewitemid=IntegratedSettlementSheet'
+	MAIN_URL 			= 'https://www.cmegroup.com/tools-information/quikstrike/option-settlement.html'
+	STRIKES_URL 		= 'https://cmegroup-tools.quikstrike.net/User/QuikStrikeView.aspx?pid={pid}&pf=61&viewitemid=IntegratedSettlementSheet'
+	OPTION_TAB_ID		= 'ctl00_ucSelector_lvGroups_ctrl{option_index}_lbGroup'
+	OPTION_GROUP_ID		= 'ctl00_ucSelector_lvGroups_ctrl{option_index}_ctl00_pnlExpirationGroupPopup'
+	OPTION_UL_CLASS		= 'nav'
+	OPTION_SPAN_CLASS	= 'item-name'
+	ROW_QUANTITY_ID		= 'MainContent_ucViewControl_IntegratedSettlementSheet_ddlStrikeCount'
+	ROW_QUANTITY_VALUE	= '25'
+	MONTHLY_OPTION 		= 'Monthly'
+	FRIDAY_OPTION 		= 'Friday'
+	WEDNESDAY_OPTION 	= 'Wednesday'
+	MONTHLY_INDEX		= 0
+	FRIDAY_INDEX		= 2
+	WEDNESDAY_INDEX		= 3
 
 	def __init__(self, option):
 		self.driver 		= webdriver.Firefox()
@@ -114,7 +126,30 @@ class ParseSettleDataFromCme:
 
 	def parse(self):
 		url = self.STRIKES_URL.format(pid=self.pid)
+		option_index = 0
 		self.driver.get(self.MAIN_URL)
 		sleep(3)
 		self.driver.get(url)
 		sleep(3)
+		if self.option_type == self.MONTHLY_OPTION:
+			option_index = self.MONTHLY_INDEX
+		elif self.option_type == self.FRIDAY_OPTION:
+			option_index = self.FRIDAY_INDEX
+		elif self.option_type == self.WEDNESDAY_OPTION:
+			option_index = self.WEDNESDAY_INDEX
+		self.driver.find_element_by_xpath('//a[@id="'+ self.OPTION_TAB_ID.format(option_index=option_index) +'"]').click()
+		soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+		div_list = soup.find('div', {'id': self.OPTION_GROUP_ID.format(option_index=option_index)})
+		li_list = div_list.find('ul', {'class': self.OPTION_UL_CLASS}).find_all('li')
+		for li in li_list:
+			if li.find('span', {'class': self.OPTION_SPAN_CLASS}).text == self.option_code:
+				link_id = li.find('a').attrs['id']
+				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
+				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
+				sleep(2)
+				# здесь пишем сбор и обработку данных из таблицы
+				table = soup.find('table', {'id': 'pricing-sheet'})
+				for row in table.tbody.find_all('tr'):
+					pass
+		return 0
+		
