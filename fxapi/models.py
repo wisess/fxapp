@@ -37,12 +37,13 @@ class Option(models.Model):
 		db_table = 'options'
 
 class ComfortZones(models.Model):
-	option 			= models.ForeignKey(Option, on_delete=models.CASCADE)
+	symbol 			= models.ForeignKey(Symbol, on_delete=models.CASCADE, default=None)
+	option_code 	= models.CharField(max_length=255, null=True, blank=True)
 	zone_type		= models.CharField(max_length=255, null=True, blank=True)
 	start_date		= models.DateField(null=True)
 	end_date		= models.DateField(null=True)
-	call_settle		= models.FloatField(null=True)
-	put_settle		= models.FloatField(null=True)
+	call_strike		= models.FloatField(null=True)
+	put_strike		= models.FloatField(null=True)
 	balance			= models.FloatField(null=True)
 
 	def __str__(self):

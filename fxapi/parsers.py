@@ -144,6 +144,9 @@ class ParseSettleDataFromCme:
 		li_list = div_list.find('ul', {'class': self.OPTION_UL_CLASS}).find_all('li')
 		for li in li_list:
 			if li.find('span', {'class': self.OPTION_SPAN_CLASS}).text == self.option_code:
+				put_strike	= 0
+				call_strike = 0
+				balance		= 0
 				link_id = li.find('a').attrs['id']
 				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
 				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
@@ -155,11 +158,27 @@ class ParseSettleDataFromCme:
 				for row in table.tbody.find_all('tr'):
 					tds = row.find_all('td')
 					tds = [td for td in tds if 'hide' not in td.attrs.get('class', [])]
-					strike_items = [tds[2].text.strip(), tds[3].text.strip(), tds[4].text.strip()]
+					strike_items = [float(tds[2].text.strip()), float(tds[3].text.strip()), float(tds[4].text.strip())]
 					strikes_data.append(strike_items)
 				for strike_item in strikes_data:
-					print(strike_item)
-					
-
+					if strike_item[0] == self.cab:
+						call_strike = strike_item[1]
+						break
+					else: 
+						continue
+				reverse_strikes_data = sorted(strikes_data, key=lambda item: item[1], reverse=True) 
+				for strike_item in reverse_strikes_data:
+					if strike_item[2] == self.cab:
+						put_strike = strike_item[1]
+						break
+					else:
+						continue
+				balance = round((call_strike+put_strike)/2, 5)
+				cab_data = {
+					"call_strike"	:call_strike,
+					"balance"		:balance,
+					"put_strike"	:put_strike,
+				}
+				return cab_data
 		return 0
 		

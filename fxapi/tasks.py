@@ -47,7 +47,7 @@ def check_expirations_list(sender, **kwargs):
 	if len(contracts_list)>0:
 		for contract in contracts_list:
 			parser = ParseSettleDataFromCme(contract)
-			settle_data = parser.parse()
+			cab_data = parser.parse()
 	else:
 		utils.print_notice("No expiring contracts.")
 
