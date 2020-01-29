@@ -38,6 +38,7 @@ class Option(models.Model):
 
 class ComfortZones(models.Model):
 	symbol 			= models.ForeignKey(Symbol, on_delete=models.CASCADE, default=None)
+	fx_symbol		= models.CharField(max_length=10, null=True, blank=True)
 	option_code 	= models.CharField(max_length=255, null=True, blank=True)
 	zone_type		= models.CharField(max_length=255, null=True, blank=True)
 	start_date		= models.DateField(null=True)
