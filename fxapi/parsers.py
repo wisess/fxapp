@@ -136,6 +136,8 @@ class ParseSettleDataFromCme:
 			option_index = self.MONTHLY_INDEX
 		elif self.option_type == self.FRIDAY_OPTION:
 			option_index = self.FRIDAY_INDEX
+			raw_code = self.option_code
+			self.option_code = raw_code[1]+raw_code[2]+raw_code[0]+raw_code[3]+raw_code[4]
 		elif self.option_type == self.WEDNESDAY_OPTION:
 			option_index = self.WEDNESDAY_INDEX
 		self.driver.find_element_by_xpath('//a[@id="'+ self.OPTION_TAB_ID.format(option_index=option_index) +'"]').click()
