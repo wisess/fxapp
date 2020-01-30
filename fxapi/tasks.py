@@ -12,7 +12,6 @@ EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
 def download_expirations_calendar(sender, **kwargs):
 	from .parsers import DownloadExpirationsList
 	
-
 	if(os.path.isfile(EXP_LIST_FILE_PATH)):
 		os.remove(EXP_LIST_FILE_PATH)
 	parser = DownloadExpirationsList()
@@ -48,6 +47,8 @@ def check_expirations_list(sender, **kwargs):
 		for contract in contracts_list:
 			parser = ParseSettleDataFromCme(contract)
 			cab_data = parser.parse()
+			services.write_cab_to_db(contract, cab_data)
+		utils.print_success("Comfort zones were write successfully.")
 	else:
 		utils.print_notice("No expiring contracts.")
 
