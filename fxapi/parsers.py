@@ -136,11 +136,13 @@ class ParseSettleDataFromCme:
 			option_index = self.MONTHLY_INDEX
 		elif self.option_type == self.FRIDAY_OPTION:
 			option_index = self.FRIDAY_INDEX
-			raw_code = self.option_code
-			self.option_code = raw_code[1]+raw_code[2]+raw_code[0]+raw_code[3]+raw_code[4]
+			if self.symbol.symbol != "JPYUSD":
+				raw_code = self.option_code
+				self.option_code = raw_code[1]+raw_code[2]+raw_code[0]+raw_code[3]+raw_code[4]
 		elif self.option_type == self.WEDNESDAY_OPTION:
 			option_index = self.WEDNESDAY_INDEX
 		self.driver.find_element_by_xpath('//a[@id="'+ self.OPTION_TAB_ID.format(option_index=option_index) +'"]').click()
+		sleep(3)
 		soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 		div_list = soup.find('div', {'id': self.OPTION_GROUP_ID.format(option_index=option_index)})
 		li_list = div_list.find('ul', {'class': self.OPTION_UL_CLASS}).find_all('li')

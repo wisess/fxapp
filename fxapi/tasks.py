@@ -4,7 +4,7 @@ import re
 import os
 import requests
 from django.dispatch import receiver
-from . import services, signals, utils
+from . import services, signals, utils, models
 
 EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
 
@@ -58,6 +58,12 @@ def load_monthly_zones(sender, **kwargs):
 
 @receiver(signals.load_weekly_zones)
 def load_weekly_zones(sender, **kwargs):
+	from .parsers import ParseSettleDataFromCme
+	contract = models.Option.objects.filter(option_code="5JYF0")[0]
+	print(contract)
+	parser = ParseSettleDataFromCme(contract)
+	cab_data = parser.parse()
+	services.write_cab_to_db(contract, cab_data)
 	utils.print_success('Weekly comfort zones data was loaded.')
 
 @receiver(signals.load_wednesday_zones)
