@@ -155,7 +155,6 @@ class ParseSettleDataFromCme:
 				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
 				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
 				sleep(3)
-				# здесь пишем сбор и обработку данных из таблицы
 				soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 				strikes_data = []
 				table = soup.find('table', {'id': 'pricing-sheet'})

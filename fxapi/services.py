@@ -10,6 +10,12 @@ def get_expiring_contracts(date):
 	expiring_contracts = models.Option.objects.filter(expiration=date).order_by('symbol')
 	return expiring_contracts
 
+def get_cabs(symbol=None):
+	query_set = models.ComfortZones.objects.all().order_by('-start_date', 'symbol')
+	if symbol != None:
+		query_set = models.ComfortZones.objects.filter(symbol__fx_symbol=symbol).order_by('-start_date')
+	return query_set
+
 def write_option_contract_to_db(symbol, contract_data):
 	option_name = contract_data[0]
 	option_type = contract_data[1]

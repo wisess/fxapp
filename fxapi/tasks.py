@@ -51,21 +51,3 @@ def check_expirations_list(sender, **kwargs):
 		utils.print_success("Comfort zones were write successfully.")
 	else:
 		utils.print_notice("No expiring contracts.")
-
-@receiver(signals.load_monthly_zones)
-def load_monthly_zones(sender, **kwargs):
-	utils.print_success('Monthly comfort zones data was loaded.')
-
-@receiver(signals.load_weekly_zones)
-def load_weekly_zones(sender, **kwargs):
-	from .parsers import ParseSettleDataFromCme
-	contract = models.Option.objects.filter(option_code="5JYF0")[0]
-	print(contract)
-	parser = ParseSettleDataFromCme(contract)
-	cab_data = parser.parse()
-	services.write_cab_to_db(contract, cab_data)
-	utils.print_success('Weekly comfort zones data was loaded.')
-
-@receiver(signals.load_wednesday_zones)
-def load_wednesday_zones(sender, **kwargs):
-	utils.print_success('Wednesday comfort zones data was loaded.')

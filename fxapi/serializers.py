@@ -4,4 +4,7 @@ from . import models
 class ComfortZonesSerializer(serializers.ModelSerializer):
     class Meta:
         model 	= models.ComfortZones
-        fields 	= '__all__'
+        fields 	= ['fx_symbol', 'option_code', 'zone_type', 'start_date', 'end_date', 'call_strike', 'put_strike', 'balance',]
+
+class ComfortZonesGetSerializer(serializers.Serializer):
+	symbol = serializers.CharField(required=False)
