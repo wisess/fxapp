@@ -13,13 +13,6 @@ class DownloadExpirationsList:
 	def __init__(self):
 		self.display = None
 		self.driver = None
-		fp = webdriver.FirefoxProfile()
-		fp.set_preference("browser.download.folderList",2)
-		fp.set_preference("browser.download.manager.showWhenStarting",False)
-		fp.set_preference("browser.download.dir", EXP_LIST_DIR_PATH)
-		fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/csv")
-		fp.set_preference("plugin.disable_full_page_plugin_for_types", "application/csv")
-		self.driver = webdriver.Firefox(fp)
 
 	def _display_start(self):
 		self._display_stop()
@@ -36,9 +29,13 @@ class DownloadExpirationsList:
 			pass
 
 	def _webdriver_start(self):
-		profile = webdriver.FirefoxProfile()
-		profile.set_preference('intl.accept_languages', 'en')
-		driver = webdriver.Firefox(firefox_profile=profile)
+		fp = webdriver.FirefoxProfile()
+		fp.set_preference("browser.download.folderList",2)
+		fp.set_preference("browser.download.manager.showWhenStarting",False)
+		fp.set_preference("browser.download.dir", EXP_LIST_DIR_PATH)
+		fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/csv")
+		fp.set_preference("plugin.disable_full_page_plugin_for_types", "application/csv")
+		self.driver = webdriver.Firefox(fp)
 		driver.maximize_window()
 		driver.implicitly_wait(15)
 		self.driver = driver
