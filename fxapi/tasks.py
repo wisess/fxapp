@@ -15,7 +15,9 @@ def download_expirations_calendar(sender, **kwargs):
 	if(os.path.isfile(EXP_LIST_FILE_PATH)):
 		os.remove(EXP_LIST_FILE_PATH)
 	parser = DownloadExpirationsList()
+	parser.open()
 	parser.download()
+	parser.close()
 
 	if(os.path.isfile(EXP_LIST_FILE_PATH)):
 		utils.print_success('The expirations calendar was downloaded.')

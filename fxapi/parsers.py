@@ -35,8 +35,29 @@ class DownloadExpirationsList:
 		except:
 			pass
 
-	def download(self):
+	def _webdriver_start(self):
+		profile = webdriver.FirefoxProfile()
+		profile.set_preference('intl.accept_languages', 'en')
+		driver = webdriver.Firefox(firefox_profile=profile)
+		driver.maximize_window()
+		driver.implicitly_wait(15)
+		self.driver = driver
+
+	def _webdriver_stop(self):
+		try:
+			self.driver.quit()
+		except:
+			pass
+
+	def open(self):
 		self._display_start()
+		self._webdriver_start()
+
+	def close(self):
+		self._webdriver_stop()
+		self._display_stop()
+
+	def download(self):
 		data_set = {}
 		symbol_index = '0'
 		bar = IncrementalBar('Downloading ', max = 12)
