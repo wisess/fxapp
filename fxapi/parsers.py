@@ -12,7 +12,7 @@ class DownloadExpirationsList:
 
 	def __init__(self):
 		self.display = None
-        self.driver = None
+		self.driver = None
 		fp = webdriver.FirefoxProfile()
 		fp.set_preference("browser.download.folderList",2)
 		fp.set_preference("browser.download.manager.showWhenStarting",False)
@@ -22,18 +22,18 @@ class DownloadExpirationsList:
 		self.driver = webdriver.Firefox(fp)
 
 	def _display_start(self):
-        self._display_stop()
-        try:
-            self.display = Display(visible=0, size=(1920, 1080))
-            self.display.start()
-        except:
-            print('Start without virtual display')
+		self._display_stop()
+		try:
+			self.display = Display(visible=0, size=(1920, 1080))
+			self.display.start()
+		except:
+			print('Start without virtual display')
 
-    def _display_stop(self):
-        try:
-            self.display.stop()
-        except:
-            pass
+	def _display_stop(self):
+		try:
+			self.display.stop()
+		except:
+			pass
 
 	def download(self):
 		self._display_start()
