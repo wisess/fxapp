@@ -29,4 +29,5 @@ gunicorn_config.py
 tmp
 
 #Log files
+geckodriver.log
 *.log

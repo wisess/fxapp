@@ -35,7 +35,7 @@ class DownloadExpirationsList:
 		fp.set_preference("browser.download.dir", EXP_LIST_DIR_PATH)
 		fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/csv")
 		fp.set_preference("plugin.disable_full_page_plugin_for_types", "application/csv")
-		self.driver = webdriver.Firefox(fp)
+		driver = webdriver.Firefox(fp)
 		driver.maximize_window()
 		driver.implicitly_wait(15)
 		self.driver = driver
