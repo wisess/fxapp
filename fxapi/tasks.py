@@ -48,7 +48,9 @@ def check_expirations_list(sender, **kwargs):
 	if len(contracts_list)>0:
 		for contract in contracts_list:
 			parser = ParseSettleDataFromCme(contract)
+			parser.open()
 			cab_data = parser.parse()
+			parser.close()
 			services.write_cab_to_db(contract, cab_data)
 		utils.print_success("Comfort zones were write successfully.")
 	else:

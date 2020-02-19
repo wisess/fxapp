@@ -102,8 +102,6 @@ class DownloadExpirationsList:
 				self.driver.find_element_by_xpath('//a[@id="ctl03_ucExport_lnkTrigger"]').click()
 				bar.next()
 				sleep(5)
-				self.driver.quit()
-				self._display_stop()
 				bar.finish()
 				
 
@@ -154,12 +152,47 @@ class ParseSettleDataFromCme:
 	WEDNESDAY_INDEX		= 3
 
 	def __init__(self, option):
-		self.driver 		= webdriver.Firefox()
+		self.display = None
+		self.driver = None
 		self.symbol 		= option.symbol
 		self.pid			= option.symbol.cme_pid
 		self.cab			= option.symbol.cab
 		self.option_type 	= option.option_type
 		self.option_code 	= option.option_code
+
+	def _display_start(self):
+		self._display_stop()
+		try:
+			self.display = Display(visible=0, size=(1920, 1080))
+			self.display.start()
+		except:
+			print('Start without virtual display')
+
+	def _display_stop(self):
+		try:
+			self.display.stop()
+		except:
+			pass
+
+	def _webdriver_start(self):
+		driver = webdriver.Firefox()
+		driver.maximize_window()
+		driver.implicitly_wait(15)
+		self.driver = driver
+
+	def _webdriver_stop(self):
+		try:
+			self.driver.quit()
+		except:
+			pass
+
+	def open(self):
+		self._display_start()
+		self._webdriver_start()
+
+	def close(self):
+		self._webdriver_stop()
+		self._display_stop()
 
 	def parse(self):
 		url = self.STRIKES_URL.format(pid=self.pid)
