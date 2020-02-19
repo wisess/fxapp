@@ -31,3 +31,6 @@ def get_next_monday_date():
     elif today_weekday == 5:
         next_monday_date = today_date + datetime.timedelta(days=3)
     return next_monday_date
+
+def str_to_numbers(raw_str):
+    return max(float(i) for i in raw_str.replace(',','.').split())

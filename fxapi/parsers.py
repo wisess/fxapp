@@ -3,6 +3,7 @@ from time import sleep
 from bs4 import BeautifulSoup
 import requests, csv, os
 from progress.bar import IncrementalBar
+from . import utils
 
 EXP_LIST_DIR_PATH 	= os.getenv("EXPIRATIONS_LIST_DIR_PATH")
 EXP_LIST_FILE_PATH 	= os.getenv("EXPIRATIONS_LIST_FILE_PATH")
@@ -196,7 +197,8 @@ class ParseSettleDataFromCme:
 				for row in table.tbody.find_all('tr'):
 					tds = row.find_all('td')
 					tds = [td for td in tds if 'hide' not in td.attrs.get('class', [])]
-					strike_items = [float(tds[2].text.strip()), float(tds[3].text.strip()), float(tds[4].text.strip())]
+					#strike_items = [float(tds[2].text.strip()), float(tds[3].text.strip()), float(tds[4].text.strip())]
+					strike_items = [utils.str_to_numbers(tds[2].text), utils.str_to_numbers(tds[3].text), utils.str_to_numbers(tds[4].text)]
 					strikes_data.append(strike_items)
 				for strike_item in strikes_data:
 					if strike_item[0] == self.cab:
