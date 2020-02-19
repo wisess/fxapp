@@ -12,6 +12,7 @@ django-admin-list-filter-dropdown==1.0.3
 django-picklefield==2.0
 django-q==1.0.2
 djangorestframework==3.11.0
+EasyProcess==0.2.10
 env-file==2019.4.13
 gunicorn==20.0.4
 idna==2.8
@@ -29,6 +30,7 @@ public==2019.4.13
 Pygments==2.5.2
 python-dateutil==2.8.1
 pytz==2019.3
+PyVirtualDisplay==0.2.5
 redis==3.3.11
 requests==2.22.0
 selenium==3.141.0
