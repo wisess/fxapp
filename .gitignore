@@ -22,6 +22,9 @@ Pipfile.lock
 # Enviroments
 .env
 
+#For manage.py
+manage.py
+
 # Server settings
 gunicorn_config.py
 
