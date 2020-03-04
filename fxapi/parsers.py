@@ -217,9 +217,9 @@ class ParseSettleDataFromCme:
 		li_list = div_list.find('ul', {'class': self.OPTION_UL_CLASS}).find_all('li')
 		for li in li_list:
 			if li.find('span', {'class': self.OPTION_SPAN_CLASS}).text == self.option_code:
-				put_strike	= 0
-				call_strike = 0
-				balance		= 0
+				put_strike	= 0.0
+				call_strike = 0.0
+				balance		= 0.0
 				link_id = li.find('a').attrs['id']
 				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
 				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
