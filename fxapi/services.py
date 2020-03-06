@@ -40,7 +40,7 @@ def write_cab_to_db(option, cab_data):
 	cab_instance.zone_type 		= option.option_type
 	cab_instance.start_date 	= start_date
 	cab_instance.end_date 		= curr_contracts[1].expiration
-	cab_instance.call_strike 	= cab_data['call_strike']
-	cab_instance.balance 		= cab_data['balance']
-	cab_instance.put_strike 	= cab_data['put_strike']
+	cab_instance.call_strike 	= float(cab_data['call_strike'])
+	cab_instance.balance 		= float(cab_data['balance'])
+	cab_instance.put_strike 	= float(cab_data['put_strike'])
 	cab_instance.save()
