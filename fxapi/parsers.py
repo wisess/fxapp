@@ -1,5 +1,6 @@
 from selenium import webdriver
 from time import sleep
+from xvfbwrapper import Xvfb
 from bs4 import BeautifulSoup
 import requests, csv, os
 from progress.bar import IncrementalBar
@@ -14,18 +15,21 @@ class DownloadExpirationsList:
 	def __init__(self):
 		self.display = None
 		self.driver = None
+		self.vdisplay = Xvfb()
 
 	def _display_start(self):
 		self._display_stop()
 		try:
-			self.display = Display(visible=0, size=(1920, 1080))
-			self.display.start()
+			self.vdisplay.start()
+			#self.display = Display(visible=0, size=(1920, 1080))
+			#self.display.start()
 		except:
 			print('Start without virtual display')
 
 	def _display_stop(self):
 		try:
-			self.display.stop()
+			self.vdisplay.stop()
+			#self.display.stop()
 		except:
 			pass
 
