@@ -13,7 +13,7 @@ REVERSE_SYMBOLS		= ("CAD" , "CHF" , "JPY")
 class DownloadExpirationsList:
 
 	def __init__(self):
-		self.display = None
+		#self.display = None
 		self.driver = None
 		self.vdisplay = Xvfb()
 
@@ -153,7 +153,7 @@ class ParseSettleDataFromCme:
 	WEDNESDAY_OPTION 	= 'Wednesday'
 	MONTHLY_INDEX		= 0
 	FRIDAY_INDEX		= 2
-	WEDNESDAY_INDEX		= 3
+	WEDNESDAY_INDEX		= 4
 
 	def __init__(self, option):
 		#self.display = None
@@ -259,5 +259,6 @@ class ParseSettleDataFromCme:
 					"put_strike"	:put_strike,
 				}
 				return cab_data
+		utils.print_error("Contract not found.")
 		return 0
 		
