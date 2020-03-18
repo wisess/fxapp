@@ -156,7 +156,8 @@ class ParseSettleDataFromCme:
 	WEDNESDAY_INDEX		= 3
 
 	def __init__(self, option):
-		self.display = None
+		#self.display = None
+		self.vdisplay = Xvfb()
 		self.driver = None
 		self.symbol 		= option.symbol
 		self.pid			= option.symbol.cme_pid
@@ -167,14 +168,16 @@ class ParseSettleDataFromCme:
 	def _display_start(self):
 		self._display_stop()
 		try:
-			self.display = Display(visible=0, size=(1920, 1080))
-			self.display.start()
+			self.vdisplay.start()
+			#self.display = Display(visible=0, size=(1920, 1080))
+			#self.display.start()
 		except:
 			print('Start without virtual display')
 
 	def _display_stop(self):
 		try:
-			self.display.stop()
+			self.vdisplay.stop()
+			#self.display.stop()
 		except:
 			pass
 
