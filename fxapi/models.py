@@ -48,7 +48,7 @@ class ComfortZones(models.Model):
 	balance			= models.FloatField(null=True)
 
 	def __str__(self):
-		return self.zone_type
+		return self.option_code
 
 	class Meta:
 		verbose_name = ('comfort_zone')
