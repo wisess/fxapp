@@ -53,5 +53,7 @@ def check_expirations_list(sender, **kwargs):
 			parser.close()
 			services.write_cab_to_db(contract, cab_data)
 		utils.print_success("Comfort zones were write successfully.")
+		services.write_cab_create_result("Comfort zones were write successfully.")
 	else:
 		utils.print_notice("No expiring contracts.")
+		services.write_cab_create_result("No expiring contracts.")

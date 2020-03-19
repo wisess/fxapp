@@ -44,3 +44,12 @@ def write_cab_to_db(option, cab_data):
 	cab_instance.balance 		= cab_data['balance']
 	cab_instance.put_strike 	= cab_data['put_strike']
 	cab_instance.save()
+
+def write_cab_create_result(result):
+	cab_create_result, created = models.ComfortZonesCreateResult.objects.get_or_create(result=result)
+	cab_create_result.result = result
+	cab_create_result.save()
+
+def get_cub_create_result():
+	result = models.ComfortZonesCreateResult.objects.first()
+	return result
