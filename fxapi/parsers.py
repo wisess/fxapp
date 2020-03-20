@@ -205,9 +205,9 @@ class ParseSettleDataFromCme:
 		url = self.STRIKES_URL.format(pid=self.pid)
 		option_index = 0
 		self.driver.get(self.MAIN_URL)
-		sleep(3)
+		sleep(5)
 		self.driver.get(url)
-		sleep(3)
+		sleep(5)
 		if self.option_type == self.MONTHLY_OPTION:
 			option_index = self.MONTHLY_INDEX
 		elif self.option_type == self.FRIDAY_OPTION:
@@ -218,7 +218,7 @@ class ParseSettleDataFromCme:
 		elif self.option_type == self.WEDNESDAY_OPTION:
 			option_index = self.WEDNESDAY_INDEX
 		self.driver.find_element_by_xpath('//a[@id="'+ self.OPTION_TAB_ID.format(option_index=option_index) +'"]').click()
-		sleep(3)
+		sleep(5)
 		soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 		div_list = soup.find('div', {'id': self.OPTION_GROUP_ID.format(option_index=option_index)})
 		li_list = div_list.find('ul', {'class': self.OPTION_UL_CLASS}).find_all('li')
@@ -230,7 +230,7 @@ class ParseSettleDataFromCme:
 				link_id = li.find('a').attrs['id']
 				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
 				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
-				sleep(3)
+				sleep(5)
 				soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 				strikes_data = []
 				table = soup.find('table', {'id': 'pricing-sheet'})
