@@ -40,6 +40,11 @@ class ComfortZonesAdmin(admin.ModelAdmin):
         'balance',
         'put_strike',
     )
+    list_filter = (
+        ('symbol__symbol', DropdownFilter),
+        ('zone_type', DropdownFilter),
+        'start_date',
+    )
     ordering = ('symbol', )
 
 @admin.register(ComfortZonesCreateResult)
