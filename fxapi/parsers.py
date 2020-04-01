@@ -156,7 +156,6 @@ class ParseSettleDataFromCme:
 	WEDNESDAY_INDEX		= 4
 
 	def __init__(self, option):
-		#self.display = None
 		self.vdisplay = Xvfb()
 		self.driver = None
 		self.symbol 		= option.symbol
@@ -169,15 +168,12 @@ class ParseSettleDataFromCme:
 		self._display_stop()
 		try:
 			self.vdisplay.start()
-			#self.display = Display(visible=0, size=(1920, 1080))
-			#self.display.start()
 		except:
 			print('Start without virtual display')
 
 	def _display_stop(self):
 		try:
 			self.vdisplay.stop()
-			#self.display.stop()
 		except:
 			pass
 
@@ -202,11 +198,14 @@ class ParseSettleDataFromCme:
 		self._display_stop()
 
 	def parse(self):
+		bar = IncrementalBar('Downloading ', max = 4)
 		url = self.STRIKES_URL.format(pid=self.pid)
 		option_index = 0
 		self.driver.get(self.MAIN_URL)
+		bar.next()
 		sleep(5)
 		self.driver.get(url)
+		bar.next()
 		sleep(5)
 		if self.option_type == self.MONTHLY_OPTION:
 			option_index = self.MONTHLY_INDEX
@@ -218,6 +217,7 @@ class ParseSettleDataFromCme:
 		elif self.option_type == self.WEDNESDAY_OPTION:
 			option_index = self.WEDNESDAY_INDEX
 		self.driver.find_element_by_xpath('//a[@id="'+ self.OPTION_TAB_ID.format(option_index=option_index) +'"]').click()
+		bar.next()
 		sleep(5)
 		soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 		div_list = soup.find('div', {'id': self.OPTION_GROUP_ID.format(option_index=option_index)})
@@ -230,6 +230,7 @@ class ParseSettleDataFromCme:
 				link_id = li.find('a').attrs['id']
 				self.driver.find_element_by_xpath('//a[@id="'+ link_id +'"]').click()
 				self.driver.find_element_by_xpath('//select[@id="'+ self.ROW_QUANTITY_ID +'"]/option[@value="'+ self.ROW_QUANTITY_VALUE +'"]').click()
+				bar.next()
 				sleep(5)
 				soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 				strikes_data = []
@@ -258,6 +259,7 @@ class ParseSettleDataFromCme:
 					"balance"		:balance,
 					"put_strike"	:put_strike,
 				}
+				bar.finish()
 				return cab_data
 		utils.print_error("Contract not found.")
 		return 0
