@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Symbol, Option, ComfortZones, ComfortZonesCreateResult
+from .models import Symbol, Option, ComfortZones
 from django_admin_listfilter_dropdown.filters import DropdownFilter, ChoiceDropdownFilter
 
 @admin.register(Symbol)
@@ -46,9 +46,3 @@ class ComfortZonesAdmin(admin.ModelAdmin):
         'start_date',
     )
     ordering = ('symbol', )
-
-@admin.register(ComfortZonesCreateResult)
-class ComfortZonesCreateResultAdmin(admin.ModelAdmin):
-    list_display = (
-        'result',
-    )

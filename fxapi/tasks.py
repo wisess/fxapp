@@ -46,14 +46,16 @@ def check_expirations_list(sender, **kwargs):
 	today = date.today()
 	contracts_list = services.get_expiring_contracts(today)
 	if len(contracts_list)>0:
+		cab_count = 0
 		for contract in contracts_list:
 			parser = ParseSettleDataFromCme(contract)
 			parser.open()
 			cab_data = parser.parse()
 			parser.close()
-			services.write_cab_to_db(contract, cab_data)
-		utils.print_success("Comfort zones were write successfully.")
-		services.write_cab_create_result("Comfort zones were write successfully.")
+			if cab_data != 0:
+				services.write_cab_to_db(contract, cab_data)
+				cab_count = cab_count+1
+		if cab_count != 0:		
+			utils.print_success("Comfort zones were write successfully for {} symbols".format(cab_count))
 	else:
 		utils.print_notice("No expiring contracts.")
-		services.write_cab_create_result("No expiring contracts.")

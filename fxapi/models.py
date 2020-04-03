@@ -54,14 +54,3 @@ class ComfortZones(models.Model):
 		verbose_name = ('comfort_zone')
 		verbose_name_plural = ('comfort_zones')
 		db_table = 'comfort_zones'
-
-class ComfortZonesCreateResult(models.Model):
-	result = models.CharField(max_length=255, null=True, blank=True)
-
-	def __str__(self):
-		return self.result
-
-	class Meta:
-		verbose_name = ('comfort_zone_create_result')
-		verbose_name_plural = ('comfort_zone_create_results')
-		db_table = 'comfort_zone_create_results'
