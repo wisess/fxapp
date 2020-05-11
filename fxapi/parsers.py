@@ -35,7 +35,7 @@ class DownloadExpirationsList:
 
 	def _webdriver_start(self):
 		fp = webdriver.FirefoxProfile()
-		fp.set_preference("browser.download.folderList",2)
+		fp.set_preference("browser.download.folderList", 2)
 		fp.set_preference("browser.download.manager.showWhenStarting",False)
 		fp.set_preference("browser.download.dir", EXP_LIST_DIR_PATH)
 		fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/csv")
