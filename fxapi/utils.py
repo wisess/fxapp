@@ -1,16 +1,16 @@
-def print_success(text):
+def print_success(text: str):
     print("[" + "\033[32m {}".format("OK") + "\033[0m" + " ] " + text)
 
 
-def print_error(text):
+def print_error(text: str):
     print("[" + "\033[31m {}".format("ERROR") + "\033[0m" + " ] " + text)
 
 
-def print_notice(text):
+def print_notice(text: str):
     print("[" + "\033[33m {}".format("NOTICE") + "\033[0m" + " ] " + text)
 
 
-def normalize_date(raw_date):
+def normalize_date(raw_date: str):
     date_sep = "-"
     date_parts = raw_date.split('/')
     norm_date = date_parts[2] + date_sep + date_parts[0] + date_sep + date_parts[1]
@@ -36,5 +36,5 @@ def get_next_monday_date():
     return next_monday_date
 
 
-def str_to_numbers(raw_str):
+def str_to_numbers(raw_str: str) -> float:
     return max(float(i) for i in raw_str.replace(',', '.').split())
