@@ -12,14 +12,14 @@ EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
 def download_expirations_calendar(sender, **kwargs):
     from .parsers import DownloadExpirationsList
 
-    if (os.path.isfile(EXP_LIST_FILE_PATH)):
+    if os.path.isfile(EXP_LIST_FILE_PATH):
         os.remove(EXP_LIST_FILE_PATH)
     parser = DownloadExpirationsList()
     parser.open()
     parser.download()
     parser.close()
 
-    if (os.path.isfile(EXP_LIST_FILE_PATH)):
+    if os.path.isfile(EXP_LIST_FILE_PATH):
         utils.print_success('The expirations calendar was downloaded.')
     else:
         utils.print_error('Error download the expirations calendar.')
@@ -28,7 +28,7 @@ def download_expirations_calendar(sender, **kwargs):
 @receiver(signals.pars_expirations_calendar)
 def pars_expirations_calendar(sender, **kwargs):
     from .parsers import ParseExpirationsList
-    if (os.path.isfile(EXP_LIST_FILE_PATH)):
+    if os.path.isfile(EXP_LIST_FILE_PATH):
         parser = ParseExpirationsList()
         contracts = parser.parse()
         symbols = services.get_fx_symbols()
