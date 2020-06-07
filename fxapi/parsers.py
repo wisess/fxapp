@@ -6,14 +6,15 @@ import requests, csv, os
 from progress.bar import IncrementalBar
 from . import utils
 
-EXP_LIST_DIR_PATH 	= os.getenv("EXPIRATIONS_LIST_DIR_PATH")
-EXP_LIST_FILE_PATH 	= os.getenv("EXPIRATIONS_LIST_FILE_PATH")
-REVERSE_SYMBOLS		= ("CAD" , "CHF" , "JPY")
+EXP_LIST_DIR_PATH = os.getenv("EXPIRATIONS_LIST_DIR_PATH")
+EXP_LIST_FILE_PATH = os.getenv("EXPIRATIONS_LIST_FILE_PATH")
+GECKODRIVER_PATH = os.getenv("GECKODRIVER_PATH")
+GECKODRIVER_LOG_PATH = os.getenv("GECKODRIVER_LOG_PATH")
+REVERSE_SYMBOLS	= ("CAD" , "CHF" , "JPY")
 
 class DownloadExpirationsList:
 
 	def __init__(self):
-		#self.display = None
 		self.driver = None
 		self.vdisplay = Xvfb()
 
@@ -21,15 +22,12 @@ class DownloadExpirationsList:
 		self._display_stop()
 		try:
 			self.vdisplay.start()
-			#self.display = Display(visible=0, size=(1920, 1080))
-			#self.display.start()
 		except:
 			print('Start without virtual display')
 
 	def _display_stop(self):
 		try:
 			self.vdisplay.stop()
-			#self.display.stop()
 		except:
 			pass
 
@@ -178,10 +176,10 @@ class ParseSettleDataFromCme:
 			pass
 
 	def _webdriver_start(self):
-		driver = webdriver.Firefox()
-		driver.maximize_window()
-		driver.implicitly_wait(15)
-		self.driver = driver
+                driver = webdriver.Firefox(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
+                driver.maximize_window()
+                driver.implicitly_wait(15)
+                self.driver = driver
 
 	def _webdriver_stop(self):
 		try:
