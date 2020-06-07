@@ -136,12 +136,20 @@ class ParseExpirationsList:
                     symbol_name = utils.normalize_symbol_name(second_col_elements[0])
                     if second_col_elements[1] == "Monthly" and second_col_elements[2] == "Options" and \
                             (
-                                    symbol_name != "EURCHF" and symbol_name != "EURGBP" and symbol_name != "EURJPY" and symbol_name != "NZDUSD"):
+                                symbol_name != "EURCHF" and
+                                symbol_name != "EURGBP" and
+                                symbol_name != "EURJPY" and
+                                symbol_name != "NZDUSD"
+                            ):
                         filtered_monthly_data = [symbol_name, second_col_elements[1], row[2], row[5].split(' ')[0]]
                         result.append(filtered_monthly_data)
                     elif second_col_elements[1] == "Weekly" and second_col_elements[3] == "Options" and \
                             (
-                                    symbol_name != "EURCHF" and symbol_name != "EURGBP" and symbol_name != "EURJPY" and symbol_name != "NZDUSD"):
+                                symbol_name != "EURCHF" and
+                                symbol_name != "EURGBP" and
+                                symbol_name != "EURJPY" and
+                                symbol_name != "NZDUSD"
+                            ):
                         filtered_weekly_data = [symbol_name, second_col_elements[2], row[2], row[5].split(' ')[0]]
                         result.append(filtered_weekly_data)
         return result
