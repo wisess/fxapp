@@ -38,3 +38,11 @@ def get_next_monday_date():
 
 def str_to_numbers(raw_str: str) -> float:
     return max(float(i) for i in raw_str.replace(',', '.').split())
+
+
+def normalize_symbol_name(raw_name):
+    parts_name = raw_name.split("/")
+    if len(parts_name) < 2:
+        return 0
+    normalize_name = parts_name[0] + parts_name[1]
+    return normalize_name
