@@ -29,13 +29,13 @@ class DownloadExpirationsList:
         self._display_stop()
         try:
             self.vdisplay.start()
-        except OSError:
+        except:
             print('Start without virtual display')
 
     def _display_stop(self):
         try:
             self.vdisplay.stop()
-        except OSError:
+        except:
             print('Virtual display can not stoped')
 
     def _webdriver_start(self):
@@ -186,13 +186,13 @@ class ParseSettleDataFromCme:
         self._display_stop()
         try:
             self.vdisplay.start()
-        except OSError:
+        except:
             print('Start without virtual display')
 
     def _display_stop(self):
         try:
             self.vdisplay.stop()
-        except OSError:
+        except:
             print('Virtual display can not stoped')
 
     def _webdriver_start(self):
