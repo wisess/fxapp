@@ -5,6 +5,7 @@ from time import sleep
 from bs4 import BeautifulSoup
 from progress.bar import IncrementalBar
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from xvfbwrapper import Xvfb
 
 from . import utils
@@ -28,14 +29,14 @@ class DownloadExpirationsList:
         self._display_stop()
         try:
             self.vdisplay.start()
-        except:
+        except OSError:
             print('Start without virtual display')
 
     def _display_stop(self):
         try:
             self.vdisplay.stop()
-        except:
-            pass
+        except OSError:
+            print('Virtual display can not stoped')
 
     def _webdriver_start(self):
         fp = webdriver.FirefoxProfile()
@@ -52,8 +53,8 @@ class DownloadExpirationsList:
     def _webdriver_stop(self):
         try:
             self.driver.quit()
-        except:
-            pass
+        except WebDriverException:
+            print('Ceckodriver can not stoped')
 
     def open(self):
         self._display_start()
@@ -177,14 +178,14 @@ class ParseSettleDataFromCme:
         self._display_stop()
         try:
             self.vdisplay.start()
-        except:
+        except OSError:
             print('Start without virtual display')
 
     def _display_stop(self):
         try:
             self.vdisplay.stop()
-        except:
-            pass
+        except OSError:
+            print('Virtual display can not stoped')
 
     def _webdriver_start(self):
         driver = webdriver.Firefox(executable_path=GECKODRIVER_PATH, log_path=GECKODRIVER_LOG_PATH)
@@ -195,8 +196,8 @@ class ParseSettleDataFromCme:
     def _webdriver_stop(self):
         try:
             self.driver.quit()
-        except:
-            pass
+        except WebDriverException:
+            print('Ceckodriver can not stoped')
 
     def open(self):
         self._display_start()
