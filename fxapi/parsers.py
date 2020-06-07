@@ -65,7 +65,7 @@ class DownloadExpirationsList:
         self._display_stop()
 
     def download(self):
-        bar = IncrementalBar('Downloading ', max=12)
+        bar = IncrementalBar('Downloading ', max=10)
 
         self.driver.get(CME_LINK + '/tools-information/quikstrike/options-calendar.html')
         first_window = self.driver.window_handles[0]
@@ -85,38 +85,41 @@ class DownloadExpirationsList:
                 self.driver.switch_to_window(handle)
                 self.driver.find_element_by_xpath('//a[@id="ctl00_cphMain_lvTabs_ctrl3_lbTab"]').click()
                 bar.next()
-                sleep(2)
+                sleep(3)
                 self.driver.find_element_by_xpath(
                     '//a[@id="cphMain_ucProductBrowser_ucProductFilter_ucTrigger_lnkTrigger"]').click()
                 bar.next()
-                sleep(2)
+                sleep(3)
                 self.driver.find_element_by_xpath(
                     '//input[@id="cphMain_ucProductBrowser_ucProductFilter_ucGroupList_rblGroups_4"]').click()
                 bar.next()
-                sleep(2)
+                sleep(3)
                 self.driver.find_element_by_xpath(
                     '//input[@id="cphMain_ucProductBrowser_ucProductFilter_ucContractTypeList_rblContractType_1"]'
                 ).click()
                 bar.next()
-                sleep(2)
+                sleep(3)
                 self.driver.find_element_by_xpath(
                     '//input[@id="cphMain_ucProductBrowser_ucProductFilter_btnApply"]').click()
                 bar.next()
-                sleep(2)
+                sleep(3)
                 self.driver.find_element_by_xpath(
                     '//a[@id="cphMain_ucProductBrowser_ucProductActions_ucTrigger_lnkTrigger"]').click()
                 bar.next()
-                sleep(2)
+                sleep(3)
                 self.driver.find_element_by_xpath(
-                    '//a[@id="cphMain_ucProductBrowser_ucProductActions_lnkShowExpirations"]').click()
+                    '//a[@id="cphMain_ucProductBrowser_ucProductActions_lnkExport"]').click()
                 bar.next()
-                sleep(2)
-                iframe = self.driver.find_element_by_xpath('//iframe[@id="mainFrame"]')
-                self.driver.switch_to_frame(iframe)
-                bar.next()
-                sleep(2)
-                self.driver.find_element_by_xpath('//a[@id="ctl03_ucExport_lnkTrigger"]').click()
-                bar.next()
+                # self.driver.find_element_by_xpath(
+                #     '//a[@id="cphMain_ucProductBrowser_ucProductActions_lnkShowExpirations"]').click()
+                # bar.next()
+                # sleep(4)
+                # iframe = self.driver.find_element_by_xpath('//iframe[@id="mainFrame"]')
+                # self.driver.switch_to_frame(iframe)
+                # bar.next()
+                # sleep(4)
+                # self.driver.find_element_by_xpath('//a[@id="ctl03_ucExport_lnkTrigger"]').click()
+                # bar.next()
                 sleep(5)
                 bar.finish()
 
