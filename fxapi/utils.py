@@ -10,7 +10,7 @@ def print_notice(text: str):
     print("[" + "\033[33m {}".format("NOTICE") + "\033[0m" + " ] " + text)
 
 
-def normalize_date(raw_date: str):
+def normalize_date(raw_date: str) -> str:
     date_sep = "-"
     date_parts = raw_date.split('/')
     norm_date = date_parts[2] + date_sep + date_parts[0] + date_sep + date_parts[1]
@@ -40,9 +40,9 @@ def str_to_numbers(raw_str: str) -> float:
     return max(float(i) for i in raw_str.replace(',', '.').split())
 
 
-def normalize_symbol_name(raw_name):
+def normalize_symbol_name(raw_name: str) -> str:
     parts_name = raw_name.split("/")
     if len(parts_name) < 2:
-        return 0
+        return 'Unknown symbol'
     normalize_name = parts_name[0] + parts_name[1]
     return normalize_name
