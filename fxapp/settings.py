@@ -129,6 +129,13 @@ Q_CLUSTER = {
     'scheduler': True,
     'catch_up': False,
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'muangress@gmail.com'
+EMAIL_HOST_PASSWORD = '[rotax912]'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 

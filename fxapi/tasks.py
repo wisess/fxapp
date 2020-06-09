@@ -45,6 +45,7 @@ def pars_expirations_calendar(sender, **kwargs):
 @receiver(signals.check_expirations_list)
 def check_expirations_list(sender, **kwargs):
     from .parsers import ParseSettleDataFromCme
+    from django.core.mail import send_mail
     today = date.today()
     contracts_list = services.get_expiring_contracts(today)
     if len(contracts_list) > 0:
@@ -58,6 +59,9 @@ def check_expirations_list(sender, **kwargs):
                 services.write_cab_to_db(contract, cab_data)
                 cab_count = cab_count + 1
         if cab_count != 0:
-            utils.print_success("Comfort zones were write successfully for {} symbols".format(cab_count))
+            subject = 'CAB Service'
+            message = "Comfort zones were write successfully for {} symbols".format(cab_count)
+            send_mail(subject, message, 'muangress@gmail.com', 'muangress@gmail.com')
+            utils.print_success(message)
     else:
         utils.print_notice("No expiring contracts.")
