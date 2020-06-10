@@ -61,7 +61,7 @@ def check_expirations_list(sender, **kwargs):
         if cab_count != 0:
             subject = 'CAB Service'
             message = "Comfort zones were write successfully for {} symbols".format(cab_count)
-            send_mail(subject, message, 'muangress@gmail.com', 'muangress@gmail.com')
+            send_mail(subject, message, 'muangress@gmail.com', ['muangress@gmail.com'])
             utils.print_success(message)
     else:
         utils.print_notice("No expiring contracts.")
