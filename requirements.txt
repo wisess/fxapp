@@ -38,7 +38,7 @@ six==1.13.0
 soupsieve==1.9.5
 sqlparse==0.3.0
 traitlets==4.3.3
-urllib3==1.25.7
+urllib3==1.26.5
 values==2019.4.13
 wcwidth==0.1.7
 xvfbwrapper==0.2.9
